@@ -1,3 +1,6 @@
+using Google.Authenticator;
+using GoogleAuthenticatorTest.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,7 +13,8 @@ services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+services.AddScoped<TwoFactorAuthenticator>();
+services.AddScoped<IGoogleAuthService, SampleGoogleAuthService>();
 
 
 
