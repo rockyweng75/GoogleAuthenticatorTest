@@ -1,0 +1,88 @@
+﻿@page
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://unpkg.com/vue@3"></script>
+
+<div id="app" class="text-center">
+    <h1 class="display-4">Register</h1>
+    <div>
+        <label>input your email</label>
+        <input v-model="User"></input>
+        <button type="button" v-on:click="UseAuth"> use Google Authenticator</button>
+        <div v-if="AuthSetting != null">
+            <img :src="AuthSetting.qrCodeSetupImageUrl"></img>
+            <p>{{AuthSetting.manualEntryKey}}</p>
+        </div>
+    </div>
+    <div>
+        <h1 class="display-4">Login</h1>
+        <label>input Password</label>
+        <input v-model="Password"></input>
+        <button type="button" v-on:click="Login">Login</button>
+        <p>
+           {{Result}}
+        </p>
+    </div>
+    <div>
+        <h1 class="display-4">Pin</h1>
+        <p>
+           {{Pin}}
+        </p>
+    </div>
+
+</div>
+
+
+<script>
+  const { createApp } = Vue
+ 
+  createApp({
+    mounted(){
+        this.GetPin();
+    },
+    data() {
+      return {
+        User: 'user@example.com',
+        Password: '',
+        UseAuth : () =>{
+            console.log(this.User)
+            this.AuthSetting = null;
+            this.Passcode = '';
+            axios({
+                method: 'post',
+                url: '/Home/Auth',
+                data: {User: this.User}
+            }).then(res =>{
+                this.AuthSetting = res.data
+            })
+        },
+        AuthSetting: null,
+        Result: '',
+        Login: () =>{
+            axios({
+                method: 'post',
+                url: '/Home/Login',
+                data: {Password: this.Password}
+            }).then(res =>{
+                this.Result = res.data
+            })
+        },
+        Pin: '',
+        GetPin: () =>{
+            var id = setInterval(()=>{
+
+                axios({
+                    method: 'get',
+                    url: '/Home/GetPin'
+                }).then(res =>{
+                        this.Pin = res.data
+                })
+            }, 3000);
+        }
+      }
+    }
+  }).mount('#app')
+</script>
+

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "QMaaMwKdF+sPdDArG4KkKmfYs6RGtUIGojCCiOmGdDKNcnHcyXwb9Imw7FAs9zRO/wUapDnGiW0/OdOWS6E+uA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rocky\\source\\repos\\GoogleAuthenticatorTest\\GoogleAuthenticatorTest\\GoogleAuthenticatorTest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rocky\\.nuget\\packages\\googleauthenticator\\2.5.0\\googleauthenticator.2.5.0.nupkg.sha512",
+    "C:\\Users\\rocky\\.nuget\\packages\\qrcoder\\1.4.3\\qrcoder.1.4.3.nupkg.sha512"
+  ],
+  "logs": []
+}
