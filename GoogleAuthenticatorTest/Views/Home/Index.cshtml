@@ -14,6 +14,13 @@
         <div v-if="AuthSetting != null">
             <img :src="AuthSetting.qrCodeSetupImageUrl"></img>
             <p>{{AuthSetting.manualEntryKey}}</p>
+            <h1 class="display-4">Login</h1>
+            <label>input Password</label>
+            <input v-model="firstPin"></input>
+            <button type="button" v-on:click="FirstValidate">Validate</button>
+            <p>
+               {{firstValidateResult ? Pass : Error }}
+            </p>
         </div>
     </div>
     <div>
@@ -58,13 +65,30 @@
                 this.AuthSetting = res.data
             })
         },
+        firstPin: '',
+        FirstValidate: () =>{
+            axios({
+                method: 'post',
+                url: '/Home/FirstValidate',
+                data: {
+                    User: this.User,
+                    Password: this.firstPin
+                }
+            }).then(res =>{
+                this.firstValidateResult = res.data
+            })
+        },
+        firstValidateResult: '',
         AuthSetting: null,
         Result: '',
         Login: () =>{
             axios({
                 method: 'post',
                 url: '/Home/Login',
-                data: {Password: this.Password}
+                data: {
+                    User: this.User,
+                    Password: this.Password
+                }
             }).then(res =>{
                 this.Result = res.data
             })
@@ -72,7 +96,6 @@
         Pin: '',
         GetPin: () =>{
             var id = setInterval(()=>{
-
                 axios({
                     method: 'get',
                     url: '/Home/GetPin'

@@ -10,13 +10,17 @@ namespace GoogleAuthenticatorTest.Services
             this.twoFactorAuthenticator = twoFactorAuthenticator; 
         }
 
+        public abstract bool BindKey(string Account, string Key);
+
         public abstract bool Exists(string Account);
 
         public abstract string FindKey(string Account);
 
         public virtual string GenerateKey(string Account)
         {
-            return Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            //return Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            // for Test
+            return "123456789";
         }
 
         public string GeneratePassword(string Account)

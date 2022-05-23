@@ -13,6 +13,7 @@ namespace GoogleAuthenticatorTest.Services
 
         public string FindKey(string Account);
 
+        public bool BindKey(string Account, string Key);
 
         public bool Exists(string Account);
 

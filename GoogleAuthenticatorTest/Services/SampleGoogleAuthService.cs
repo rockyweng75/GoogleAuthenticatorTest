@@ -8,6 +8,19 @@ namespace GoogleAuthenticatorTest.Services
         {
         }
 
+        public override bool BindKey(string Account, string Key)
+        {
+            if (Validate(Account, Key))
+            {
+                // UPDATE DB
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
         public override bool Exists(string Account)
         {
             // FIND DB
@@ -16,7 +29,7 @@ namespace GoogleAuthenticatorTest.Services
 
         public override string FindKey(string Account)
         {
-            // FIND DB
+            // Modify to FIND DB 
             return this.GenerateKey(Account);
         }
 

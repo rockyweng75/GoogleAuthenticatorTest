@@ -36,7 +36,7 @@ namespace GoogleAuthenticatorTest
             string key = null;
             if (googleAuthService.Exists(data.User))
             {
-                key = googleAuthService.FindKey(data.User);
+                return Json(new { error = "Account is Exists" });
             }
             else 
             {
@@ -46,6 +46,15 @@ namespace GoogleAuthenticatorTest
             var setupInfo = googleAuthService.GenerateSetup(systemName, data.User, key);
             return Json(setupInfo);
         }
+
+        [HttpPost]
+        public IActionResult FirstValidate([FromBody] LoginFrom data)
+        {
+            if (string.IsNullOrEmpty(data.User) || string.IsNullOrEmpty(data.Password))
+                return this.BadRequest();
+            return Json(googleAuthService.BindKey(data.User, data.Password));
+        }
+
 
         [HttpGet]
         public IActionResult GetPin(LoginFrom data)
